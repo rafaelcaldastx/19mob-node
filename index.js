@@ -1,8 +1,11 @@
 const express = require('express');
+const routes = require('./routes');
 
 const app = express();
 
-//app.get('/', function(req,res) {
+app.use(routes);
+
+// * app.get('/', function(req,res) {
 app.get('/', (req,res) => {
     res.send('Cheguei na minha rota de GET')
 });

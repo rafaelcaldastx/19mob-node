@@ -5,7 +5,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class BaseModel {
     constructor() {
-        this.db = firebaseApp.firestore();        
+        this.db = firebaseApp.firestore();
     }
 }
 
