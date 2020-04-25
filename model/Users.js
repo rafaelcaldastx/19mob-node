@@ -16,11 +16,15 @@ class Users extends BaseModel {
     getBy(conditions) {
         let db = this.db.collection('users');
 
-        conditions.forEach(({ field, operator , value }) => 
+        conditions.forEach(({ field, operator, value }) =>
             db = db.where(field, operator, value)
         );
 
         return db.get();
+    }
+
+    add(user) {
+        return this.db.collection('users').add(user);
     }
 
 

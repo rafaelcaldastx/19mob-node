@@ -5,9 +5,9 @@ class Users {
         const { id } = req.params;
 
         usersModel.get(id)
-            .then((user) => {                
+            .then((user) => {
                 if (!user.exists) {
-                    res.status(404).send({message: 'User not found'});
+                    res.status(404).send({ message: 'User not found' });
                 }
 
                 //console.log(user);
@@ -15,10 +15,24 @@ class Users {
             })
             .catch((error) => {
                 //console.error(error);
-                res.status(500).send(error);                
+                res.status(500).send(error);
             })
 
         //res.send(`Eu recebi o parametro ${req.params.id}`);
+    }
+
+    add(req, res) {
+
+        usersModel.add(req.body)
+            .then(userResult => {
+                console.log(userResult);
+                res.status(201).json({ id: userResult.id });
+
+            })
+            .catch(error => {
+                console.log(error);
+                res.sendStatus(500);
+            });
     }
 }
 
