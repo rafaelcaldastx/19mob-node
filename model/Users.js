@@ -12,6 +12,18 @@ class Users extends BaseModel {
             .doc(id)
             .get();
     }
+
+    getBy(conditions) {
+        let db = this.db.collection('users');
+
+        conditions.forEach(({ field, operator , value }) => 
+            db = db.where(field, operator, value)
+        );
+
+        return db.get();
+    }
+
+
 }
 
 module.exports = Users
