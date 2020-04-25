@@ -1,5 +1,7 @@
 const UsersModel = require('../model/Users');
 const usersModel = new UsersModel();
+
+const cryptoPassword = require('../utils/cryptoPassword');
 class Users {
     get(req, res) {
         const { id } = req.params;
@@ -22,12 +24,25 @@ class Users {
     }
 
     add(req, res) {
+        const data = {
+            ...req.body,
+            password: cryptoPassword(req.body.password),
+        }
 
-        usersModel.add(req.body)
-            .then(userResult => {
-                console.log(userResult);
-                res.status(201).json({ id: userResult.id });
+        /*  usersModel.add(req.body)
+              .then(userResult => {
+                  console.log(userResult);
+                  res.status(201).json({ id: userResult.id });
+  
+              }) */
+        usersModel.create(data)
+            .then((user) => {
+                delete data.password;
 
+                res.status(201).json({
+                    ...data,
+                    id: user.id,
+                })
             })
             .catch(error => {
                 console.log(error);
