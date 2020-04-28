@@ -1,6 +1,5 @@
 const UsersModel = require('../model/Users');
 const usersModel = new UsersModel();
-
 const createToken = require('../utils/createToken')
 
 
@@ -14,11 +13,11 @@ class Auth {
             { field: 'password', operator: '==', value: password }
         ]
 
-        usersModel.getBy(conditions)
+        usersModel.getBy(email,password)
             .then((user) => {
                 //console.log(user.docs[0].data());
-                if (user.docs.length === 0) {
-                    return response
+                if (user.docs.length == 0) {
+                    return res
                         .status(401)
                         .send({
                             code: 'not_found',
